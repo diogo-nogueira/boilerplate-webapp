@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    defaults:
+      run:
+        working-directory: backend
+    env:
+      # Chave falsa, só para os testes. Não é um segredo real.
+      DJANGO_SECRET_KEY: chave-falsa-so-para-testes-no-ci-nao-e-segredo
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar dependências
+        run: pip install -r requirements-dev.txt
+      - name: Auditar dependências
+        run: pip-audit -r requirements.txt
+      - name: Testes
+        run: python manage.py test
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - name: Auditar dependências
+        run: npm audit --audit-level=high
+      - name: Lint
+        run: npm run lint
+      - name: Testes
+        run: npm test -- --run
+      - name: Build
+        run: npm run build
+      - name: Testes do hook de proteção
+        working-directory: .
+        run: node --test .claude/hooks/bloquear-env.test.mjs

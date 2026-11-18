@@ -1,0 +1,50 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(**/.env)",
+      "Edit(**/.env)",
+      "Write(**/.env)",
+      "Bash(cat backend/.env:*)",
+      "Bash(cat .env:*)",
+      "Bash(type backend\\.env:*)",
+      "Bash(Get-Content backend/.env:*)",
+      "Bash(Get-Content .env:*)"
+    ],
+    "allow": [
+      "Bash(python manage.py test:*)",
+      "Bash(npm run build)",
+      "Bash(npm test:*)",
+      "Bash(git status)",
+      "Bash(git diff:*)"
+    ]
+  },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": { "source": "github", "repo": "anthropics/claude-plugins-official" }
+    },
+    "impeccable": {
+      "source": { "source": "github", "repo": "pbakaus/impeccable" }
+    }
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "impeccable@impeccable": true
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Edit|Write|Grep|Glob|Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/bloquear-env.mjs"]
+          }
+        ]
+      }
+    ]
+  }
+}

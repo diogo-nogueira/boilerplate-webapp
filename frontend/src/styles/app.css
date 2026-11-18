@@ -1,0 +1,553 @@
+/* Estilos base, peças partilhadas (botões, avisos, etiquetas, formulários,
+   tabelas, paginação) e moldura da app com a barra de topo. Os valores vêm de tokens.css. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--size-md);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--accent-text);
+}
+
+code {
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* Texto só para leitores de ecrã */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Botões ---------- */
+/* .button é a ação secundária; .button-primary a principal (uma por formulário). */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--control-height);
+  padding: 0 var(--space-4);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:hover:not(:disabled) {
+  background: var(--surface-2);
+}
+
+.button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.button-primary {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.button-primary:hover:not(:disabled) {
+  border-color: var(--accent-hover);
+  background: var(--accent-hover);
+}
+
+/* Ação discreta: sem contorno até passar o rato */
+.button-quiet {
+  border-color: transparent;
+  background: transparent;
+  color: var(--text-2);
+}
+
+.button-small {
+  min-height: var(--control-height-sm);
+  padding: 0 var(--space-3);
+  font-size: var(--size-sm);
+}
+
+.button-block {
+  width: 100%;
+}
+
+/* ---------- Avisos ---------- */
+
+.banner {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid;
+  border-radius: var(--radius);
+  font-size: var(--size-sm);
+}
+
+.banner-error {
+  border-color: var(--danger);
+  background: var(--danger-wash);
+  color: var(--danger);
+  font-weight: 500;
+}
+
+/* Aviso neutro ou confirmação (gravado, sessão terminada) */
+.banner-notice {
+  border-color: var(--accent);
+  background: var(--accent-wash);
+  color: var(--accent-wash-text);
+}
+
+/* ---------- Etiquetas de estado ---------- */
+/* A cor nunca é o único sinal: o texto da etiqueta diz sempre o que é. */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  width: fit-content;
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text-2);
+  font-size: var(--size-xs);
+  font-weight: 600;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.tag-accent {
+  background: var(--accent-wash);
+  color: var(--accent-wash-text);
+}
+
+.tag-success {
+  background: var(--success-wash);
+  color: var(--success);
+}
+
+.tag-danger {
+  background: var(--danger-wash);
+  color: var(--danger);
+}
+
+/* ---------- Formulários ---------- */
+/* .field: campo de um formulário; .filter: filtro por cima de uma lista */
+
+.field,
+.filter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.field label,
+.filter label {
+  color: var(--text-2);
+  font-size: var(--size-sm);
+  font-weight: 500;
+}
+
+/* As caixas de seleção ficam nativas */
+.field input:not([type="checkbox"]):not([type="radio"]),
+.field select,
+.field textarea,
+.filter input,
+.filter select {
+  min-height: var(--control-height);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.field textarea {
+  padding: var(--space-2) var(--space-3);
+}
+
+.filter input,
+.filter select {
+  min-width: 11rem;
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible,
+.filter input:focus-visible,
+.filter select:focus-visible {
+  outline-offset: 0;
+  border-color: var(--focus);
+}
+
+/* Campo com erro: contorno vermelho e mais grosso; a mensagem diz o que falta */
+.field [aria-invalid="true"]:not([type="checkbox"]):not([type="radio"]) {
+  border-color: var(--danger);
+  box-shadow: inset 0 0 0 1px var(--danger);
+}
+
+.field-error {
+  color: var(--danger);
+  font-size: var(--size-sm);
+  font-weight: 500;
+}
+
+/* ---------- Tabelas ---------- */
+/* .table-wrap desliza na horizontal quando a tabela não cabe (telemóvel). */
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--size-sm);
+}
+
+.table th,
+.table td {
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.table th {
+  background: var(--surface-2);
+  color: var(--text-2);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.table td {
+  border-top: 1px solid var(--line);
+}
+
+/* Números alinhados à direita e com algarismos da mesma largura */
+.table .numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Paginação ---------- */
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.pagination-position {
+  color: var(--text-2);
+  font-size: var(--size-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Marca ---------- */
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.brand-mark {
+  flex: none;
+  color: var(--accent);
+}
+
+.brand-name {
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* ---------- Moldura com sessão: barra de topo e conteúdo ---------- */
+
+.container {
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: -4rem;
+  z-index: 10;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.skip-link:focus {
+  top: var(--space-2);
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  min-height: var(--topbar-height);
+}
+
+.topbar-nav ul {
+  display: flex;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.topbar-nav a {
+  display: flex;
+  align-items: center;
+  min-height: var(--control-height-sm);
+  padding: 0 var(--space-3);
+  border-radius: var(--radius);
+  color: var(--text-2);
+  font-size: var(--size-sm);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.topbar-nav a:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+/* Página atual: fundo de destaque suave */
+.topbar-nav a[aria-current="page"] {
+  background: var(--accent-wash);
+  color: var(--accent-wash-text);
+}
+
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  margin-left: auto;
+}
+
+.topbar-user-name {
+  overflow: hidden;
+  color: var(--text-2);
+  font-size: var(--size-sm);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-7);
+}
+
+.app-main:focus {
+  outline: none;
+}
+
+.app-loading {
+  padding: var(--space-7) var(--space-5);
+  color: var(--text-2);
+  text-align: center;
+}
+
+/* ---------- Páginas ---------- */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.page-title {
+  font-size: var(--size-2xl);
+  letter-spacing: -0.01em;
+}
+
+.page-lead {
+  max-width: 65ch;
+  color: var(--text-2);
+}
+
+/* ---------- Entrar ---------- */
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5);
+  min-height: 100vh;
+  padding: var(--space-7) var(--space-4);
+}
+
+.login-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  width: 100%;
+  max-width: 24rem;
+}
+
+.login-panel .brand {
+  align-self: center;
+  font-size: var(--size-lg);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.login-heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.login-title {
+  font-size: var(--size-xl);
+}
+
+.login-hint {
+  color: var(--text-2);
+  font-size: var(--size-sm);
+}
+
+.login-form .button-primary {
+  margin-top: var(--space-2);
+}
+
+.login-help {
+  max-width: 24rem;
+  color: var(--text-3);
+  font-size: var(--size-sm);
+  text-align: center;
+}
+
+/* ---------- Ecrãs estreitos ---------- */
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 var(--space-4);
+  }
+
+  /* A barra passa a duas linhas: marca e utilizador em cima, o menu por baixo */
+  .topbar-inner {
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-3);
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-2);
+  }
+
+  .topbar-nav {
+    order: 3;
+    flex-basis: 100%;
+  }
+
+  .app-main {
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-6);
+  }
+
+  .page-title {
+    font-size: var(--size-xl);
+  }
+
+  .login {
+    justify-content: flex-start;
+    padding-top: var(--space-6);
+  }
+
+  .login-form {
+    padding: var(--space-5);
+  }
+}

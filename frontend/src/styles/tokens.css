@@ -1,0 +1,106 @@
+/* Tokens de design: cores, tipos e medidas usados em toda a app.
+   Aspeto neutro de boilerplate: tipo de letra do sistema, cinzentos e um só azul
+   de destaque. Troque estes valores para dar à aplicação a sua identidade.
+   Contraste de texto verificado (pelo menos 4.5:1) nos dois modos. */
+
+:root {
+  color-scheme: light;
+
+  /* Fundos: página, superfícies (barra, cartões, campos) e realce suave */
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --surface-2: #eef0f3;
+
+  /* Linhas: separadores e contorno dos campos (3:1 contra a superfície) */
+  --line: #e1e4e8;
+  --line-strong: #8a929d;
+
+  /* Texto: principal, secundário e terciário */
+  --text: #1b1f24;
+  --text-2: #454c57;
+  --text-3: #5b636e;
+
+  /* Destaque: botão principal, links, página atual e foco */
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --on-accent: #ffffff;
+  --accent-text: #2563eb;
+  --accent-wash: #eef3fe;
+  --accent-wash-text: #1e40af;
+  --focus: #2563eb;
+
+  /* Estados: erro e sucesso, com fundo suave para avisos e etiquetas */
+  --danger: #b42318;
+  --danger-wash: #fef3f2;
+  --success: #166534;
+  --success-wash: #ecfdf3;
+
+  /* Tipos do sistema operativo, sem pacotes de fontes */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Tamanhos de letra (o texto corrente é --size-md) */
+  --size-xs: 0.75rem;
+  --size-sm: 0.875rem;
+  --size-md: 0.9375rem;
+  --size-lg: 1.125rem;
+  --size-xl: 1.375rem;
+  --size-2xl: 1.75rem;
+
+  /* Espaços (múltiplos de 4 px) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  /* Cantos ligeiramente arredondados */
+  --radius-sm: 4px;
+  --radius: 6px;
+  --radius-lg: 10px;
+
+  --shadow: 0 1px 2px rgb(16 24 40 / 0.06), 0 1px 3px rgb(16 24 40 / 0.08);
+
+  /* Alvo mínimo de toque e clique */
+  --control-height: 2.5rem;
+  --control-height-sm: 2rem;
+
+  --topbar-height: 3.5rem;
+  --content-width: 72rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --bg: #18191c;
+    --surface: #1f2226;
+    --surface-2: #2a2d32;
+
+    --line: #33363c;
+    --line-strong: #6b727c;
+
+    --text: #e8eaed;
+    --text-2: #c3c8cf;
+    --text-3: #9aa1ab;
+
+    /* O botão principal mantém o azul (texto branco a 5:1); o texto azul fica mais claro */
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --on-accent: #ffffff;
+    --accent-text: #7da7ff;
+    --accent-wash: #1d2a48;
+    --accent-wash-text: #a9c4ff;
+    --focus: #7da7ff;
+
+    --danger: #ffa198;
+    --danger-wash: #3a1e1c;
+    --success: #7ee2a8;
+    --success-wash: #163024;
+
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+  }
+}

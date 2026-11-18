@@ -1,0 +1,12 @@
+Django==6.1.3
+djangorestframework==3.18.3
+django-environ==0.14.0
+# Dependências do Django, também fixas: a instalação fica igual em todos os ambientes.
+asgiref==3.13.0
+sqlparse==0.6.1
+# Só no Windows: lá não há base de dados de fusos horários do sistema.
+tzdata==2026.6; sys_platform == "win32"
+# Driver do PostgreSQL (só é usado com DB_ENGINE=postgres) e as suas dependências.
+psycopg==3.3.9
+psycopg-binary==3.3.9
+typing_extensions==4.16.0; python_version < "3.13"
